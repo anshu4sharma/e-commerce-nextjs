@@ -1,10 +1,10 @@
 import axios from "axios";
-import { GetServerSideProps, GetStaticProps, NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { AiOutlineHeart } from "react-icons/ai";
-import { upperFirst } from "@/utils";
+import { upperFirst, sliceWords } from "@/utils";
 import { Iproducts } from "@/types";
 const Home: NextPage<Iproducts> = ({ data }) => {
   return (
@@ -12,9 +12,8 @@ const Home: NextPage<Iproducts> = ({ data }) => {
       {data.length > 0 &&
         data?.map((item, index) => {
           return (
-            <Link
+            <div
               key={index}
-              href={"/about"}
               className="relative block overflow-hidden group rounded-xl"
             >
               <button className="absolute right-4 top-4 z-10 rounded-full bg-white p-1.5 text-gray-900 transition hover:text-gray-900/75">
@@ -33,16 +32,19 @@ const Home: NextPage<Iproducts> = ({ data }) => {
                   {upperFirst(item.category)}
                 </span>
                 <h3 className="mt-4 text-sm font-medium text-gray-900">
-                  {item.title}
+                  {sliceWords(item.title,5)}
                 </h3>
                 <p className="mt-1.5 text-sm text-gray-700">${item.price}</p>
-                <form className="mt-4">
-                  <button className="block w-full p-4 text-sm font-medium transition bg-yellow-400 rounded hover:scale-105">
+                <div className="mt-4">
+                  <Link
+                    href={`/product/${item.id}`}
+                    className="block w-full p-2 text-center text-sm font-medium transition bg-yellow-400 rounded hover:scale-105"
+                  >
                     Add to Cart
-                  </button>
-                </form>
+                  </Link>
+                </div>
               </div>
-            </Link>
+            </div>
           );
         })}
     </div>
@@ -55,5 +57,6 @@ export const getStaticProps: GetStaticProps = async () => {
   const { data } = await axios.get("https://fakestoreapi.com/products");
   return {
     props: { data },
+    revalidate: 120,
   };
 };
