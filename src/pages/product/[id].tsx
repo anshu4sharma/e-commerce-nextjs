@@ -15,9 +15,19 @@ const Product = () => {
     );
     return data.data;
   };
-  const { data } = useQuery(["product", query.id], fetchProduct, {
-    enabled: !!query.id,
-  });
+  const { data, isLoading, error } = useQuery(
+    ["product", query.id],
+    fetchProduct,
+    {
+      enabled: !!query.id,
+    }
+  );
+  if (isLoading) {
+    return <Loader />;
+  }
+  if (error) {
+    return <p>An error occured</p>;
+  }
   return (
     <Suspense fallback={<p>loading</p>}>
       <section>
@@ -157,7 +167,6 @@ const Product = () => {
                       className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
                     />
                   </div>
-
                   <button
                     type="submit"
                     className="block px-5 py-3 ml-3 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-500"
