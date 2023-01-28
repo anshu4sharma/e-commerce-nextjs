@@ -1,12 +1,12 @@
 import axios from "axios";
-import { GetStaticProps, NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { upperFirst, sliceWords } from "@/utils";
 import { Iproducts } from "@/types";
-const Home: NextPage<Iproducts> = ({ data }) => {
+const Category: NextPage<Iproducts> = ({ data }) => {
   if (!data) {
     return <p>An error occured</p>;
   }
@@ -68,10 +68,25 @@ const Home: NextPage<Iproducts> = ({ data }) => {
   );
 };
 
-export default Home;
+export default Category;
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { data } = await axios.get("https://fakestoreapi.com/products");
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { data } = await axios.get(
+    `https://fakestoreapi.com/products/categories`
+  );
+  let paths = data.map((item: string) => {
+    return { params: { category: item } };
+  });
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { data } = await axios.get(
+    `https://fakestoreapi.com/products/category/${params?.category}`
+  );
   return {
     props: { data },
   };

@@ -4,18 +4,19 @@ import { Iproduct, Iproducts } from "@/types";
 import axios, { AxiosResponse } from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { useQuery } from "react-query";
 import { sliceWords } from "@/utils";
 const Product = () => {
   const { query } = useRouter();
+  const [item, setItems] = useState(1);
   const fetchProduct = async (): Promise<Iproduct> => {
     const data = await axios.get<Iproduct>(
       `https://fakestoreapi.com/products/${query.id}`
     );
     return data.data;
   };
-  const { data, isLoading, error } = useQuery(
+  const { data, isLoading, error, isFetching } = useQuery(
     ["product", query.id],
     fetchProduct,
     {
@@ -28,19 +29,22 @@ const Product = () => {
   if (error) {
     return <p>An error occured</p>;
   }
+  console.log(isFetching, "isFetching");
+  console.log(isLoading, "isLoading");
+
   return (
     <Suspense fallback={<p>loading</p>}>
       <section>
         <div className="relative max-w-screen-xl px-4 py-8 mx-auto">
           <div className="grid items-start grid-cols-1 gap-8 md:grid-cols-2">
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-1">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-1">
               {data?.image && (
                 <Image
                   width={500}
                   height={500}
                   alt="Les Paul"
                   src={data?.image}
-                  className="object-cover w-full aspect-square rounded-xl"
+                  className="object-contain w-full aspect-square rounded-xl"
                 />
               )}
             </div>
@@ -53,15 +57,13 @@ const Product = () => {
               <div className="flex justify-between mt-8">
                 <div className="max-w-[35ch]">
                   <h1 className="text-2xl font-bold">{data?.title}</h1>
-
                   <p className="mt-0.5 text-sm">Highest Rated Product</p>
-
                   <div className="mt-2 -ml-0.5 flex">
                     {data?.rating.rate &&
-                      [...Array(Math.max(Math.ceil(data?.rating.rate), 4))].map(
-                        (item) => (
+                      [...Array(Math.ceil(data?.rating.rate))].map(
+                        (_, index) => (
                           <svg
-                            key={item}
+                            key={index}
                             className="w-5 h-5 text-yellow-400"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20"
@@ -71,7 +73,6 @@ const Product = () => {
                           </svg>
                         )
                       )}
-
                     <svg
                       className="w-5 h-5 text-gray-200"
                       xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +164,8 @@ const Product = () => {
                       type="number"
                       id="quantity"
                       min="1"
-                      value="1"
+                      value={item}
+                      onChange={(e) => setItems(e.target.valueAsNumber)}
                       className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
                     />
                   </div>
