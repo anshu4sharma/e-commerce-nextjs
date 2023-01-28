@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 import React from "react";
 const product = () => {
   return (
@@ -6,32 +7,40 @@ const product = () => {
       <div className="relative max-w-screen-xl px-4 py-8 mx-auto">
         <div className="grid items-start grid-cols-1 gap-8 md:grid-cols-2">
           <div className="grid grid-cols-2 gap-4 md:grid-cols-1">
-            <img
+            <Image
+              width={500}
+              height={500}
               alt="Les Paul"
               src="https://images.unsplash.com/photo-1456948927036-ad533e53865c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
               className="object-cover w-full aspect-square rounded-xl"
             />
 
             <div className="grid grid-cols-2 gap-4 lg:mt-4">
-              <img
+              <Image
+                width={500}
+                height={500}
                 alt="Les Paul"
                 src="https://images.unsplash.com/photo-1456948927036-ad533e53865c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
                 className="object-cover w-full aspect-square rounded-xl"
               />
 
-              <img
+              <Image
+                width={500}
+                height={500}
                 alt="Les Paul"
                 src="https://images.unsplash.com/photo-1456948927036-ad533e53865c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
                 className="object-cover w-full aspect-square rounded-xl"
               />
-
-              <img
+              <Image
+                width={500}
+                height={500}
                 alt="Les Paul"
                 src="https://images.unsplash.com/photo-1456948927036-ad533e53865c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
                 className="object-cover w-full aspect-square rounded-xl"
               />
-
-              <img
+              <Image
+                width={500}
+                height={500}
                 alt="Les Paul"
                 src="https://images.unsplash.com/photo-1456948927036-ad533e53865c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
                 className="object-cover w-full aspect-square rounded-xl"

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 const index = () => {
   return (
@@ -24,9 +25,11 @@ const index = () => {
               <div className="flow-root">
                 <ul className="-my-4 divide-y divide-gray-100">
                   <li className="flex items-center py-4">
-                    <img
+                    <Image
                       src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
-                      alt=""
+                      alt="img"
+                      width={500}
+                      height={500}
                       className="object-cover w-16 h-16 rounded"
                     />
 
@@ -50,9 +53,11 @@ const index = () => {
                   </li>
 
                   <li className="flex items-center py-4">
-                    <img
+                  <Image
                       src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
-                      alt=""
+                      alt="img"
+                      width={500}
+                      height={500}
                       className="object-cover w-16 h-16 rounded"
                     />
 
