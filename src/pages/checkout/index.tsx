@@ -53,7 +53,7 @@ const index = () => {
                   </li>
 
                   <li className="flex items-center py-4">
-                  <Image
+                    <Image
                       src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
                       alt="img"
                       width={500}
@@ -90,7 +90,7 @@ const index = () => {
             <form className="grid grid-cols-6 gap-4">
               <div className="col-span-3">
                 <label
-                  for="FirstName"
+                  htmlFor="FirstName"
                   className="block text-xs font-medium text-gray-700"
                 >
                   First Name
@@ -105,7 +105,7 @@ const index = () => {
 
               <div className="col-span-3">
                 <label
-                  for="LastName"
+                  htmlFor="LastName"
                   className="block text-xs font-medium text-gray-700"
                 >
                   Last Name
@@ -120,7 +120,7 @@ const index = () => {
 
               <div className="col-span-6">
                 <label
-                  for="Email"
+                  htmlFor="Email"
                   className="block text-xs font-medium text-gray-700"
                 >
                   Email
@@ -135,7 +135,7 @@ const index = () => {
 
               <div className="col-span-6">
                 <label
-                  for="Phone"
+                  htmlFor="Phone"
                   className="block text-xs font-medium text-gray-700"
                 >
                   Phone
@@ -155,7 +155,7 @@ const index = () => {
 
                 <div className="mt-1 -space-y-px bg-white rounded-md shadow-sm">
                   <div>
-                    <label for="CardNumber" className="sr-only">
+                    <label htmlFor="CardNumber" className="sr-only">
                       {" "}
                       Card Number{" "}
                     </label>
@@ -170,7 +170,7 @@ const index = () => {
 
                   <div className="flex -space-x-px">
                     <div className="flex-1">
-                      <label for="CardExpiry" className="sr-only">
+                      <label htmlFor="CardExpiry" className="sr-only">
                         {" "}
                         Card Expiry{" "}
                       </label>
@@ -184,7 +184,7 @@ const index = () => {
                     </div>
 
                     <div className="flex-1">
-                      <label for="CardCVC" className="sr-only">
+                      <label htmlFor="CardCVC" className="sr-only">
                         {" "}
                         Card CVC{" "}
                       </label>
@@ -207,7 +207,7 @@ const index = () => {
 
                 <div className="mt-1 -space-y-px bg-white rounded-md shadow-sm">
                   <div>
-                    <label for="Country" className="sr-only">
+                    <label htmlFor="Country" className="sr-only">
                       Country
                     </label>
 
@@ -225,7 +225,7 @@ const index = () => {
                   </div>
 
                   <div>
-                    <label className="sr-only" for="PostalCode">
+                    <label className="sr-only" htmlFor="PostalCode">
                       {" "}
                       ZIP/Post Code{" "}
                     </label>
