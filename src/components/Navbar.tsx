@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRef, useEffect } from "react";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 const Navbar = () => {
   const menu = useRef<HTMLInputElement | null>(null);
   const searchbar = useRef<HTMLInputElement | null>(null);
@@ -25,12 +26,13 @@ const Navbar = () => {
       router.events.off("routeChangeComplete", hideNavbar);
     };
   }, [router.events]);
+
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded">
       <div className="container flex flex-wrap items-center justify-between mx-auto">
         <Link href="/" className="flex items-center gap-2">
-          <span className="self-center text-xl font-semibold whitespace-nowrap">
-            Code Blocks
+          <span className="self-center text-xl font-bold whitespace-nowrap">
+            Myntra
           </span>
         </Link>
         <div className="flex md:order-2">
@@ -69,7 +71,7 @@ const Navbar = () => {
                 href="/"
                 className={`block py-2 pl-3 pr-4 ${
                   router.pathname == "/"
-                    ? "bg-blue-600 text-white md:text-blue-600"
+                    ? "bg-yellow-600 text-white md:text-yellow-600"
                     : "text-gray-700 bg-white"
                 } rounded md:bg-transparent md:p-0`}
                 aria-current="page"
@@ -81,8 +83,8 @@ const Navbar = () => {
               <Link
                 href="/category/jewelery"
                 className={`block py-2 pl-3 pr-4 ${
-                  router.pathname == "/category/jewelery"
-                    ? "bg-blue-600 text-white md:text-blue-600"
+                  router.query.category === "jewelery"
+                    ? "bg-yellow-600 text-white md:text-yellow-600"
                     : "text-gray-700 bg-white"
                 } rounded md:bg-transparent md:p-0`}
                 aria-current="page"
@@ -94,8 +96,8 @@ const Navbar = () => {
               <Link
                 href="/category/electronics"
                 className={`block py-2 pl-3 pr-4 ${
-                  router.pathname == "/category/electronics"
-                    ? " md:text-blue-600 bg-blue-600 text-white"
+                  router.query.category === "electronics"
+                    ? " md:text-yellow-600 bg-yellow-600 text-white"
                     : "text-gray-700 bg-white"
                 } rounded md:bg-transparent md:p-0`}
               >
@@ -106,8 +108,8 @@ const Navbar = () => {
               <Link
                 href="/category/men's clothing"
                 className={`block py-2 pl-3 pr-4 ${
-                  router.pathname == "/category/men's clothing"
-                    ? " md:text-blue-600 bg-blue-600 text-white"
+                  router.query.category === "men's clothing"
+                    ? " md:text-yellow-600 bg-yellow-600 text-white"
                     : "text-gray-700 bg-white "
                 } rounded md:bg-transparent md:p-0`}
               >
@@ -118,8 +120,8 @@ const Navbar = () => {
               <Link
                 href="/category/women's clothing"
                 className={`block py-2 pl-3 pr-4 ${
-                  router.pathname == "/category/women's clothing"
-                    ? " md:text-blue-600 bg-blue-600 text-white"
+                  router.query.category === "women's clothing"
+                    ? " md:text-yellow-600 bg-yellow-600 text-white"
                     : "text-gray-700 bg-white "
                 } rounded md:bg-transparent md:p-0`}
               >
@@ -131,11 +133,11 @@ const Navbar = () => {
                 href="/cart"
                 className={`block py-2 pl-3 pr-4 ${
                   router.pathname == "/cart"
-                    ? " md:text-blue-600 bg-blue-600 text-white"
+                    ? " md:text-yellow-600 bg-yellow-600 text-white"
                     : "text-gray-700 bg-white "
                 } rounded md:bg-transparent md:p-0`}
               >
-                Cart
+                <AiOutlineShoppingCart className="text-2xl font-extrabold" />
               </Link>
             </li>
           </ul>

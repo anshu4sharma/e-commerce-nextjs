@@ -15,3 +15,7 @@ export interface Iproduct {
 export interface Iproducts {
   data: Iproduct[];
 }
+
+export type IProductitem = Partial<Omit<Iproduct, "rating" | "description">> & {
+  quantity: string;
+};

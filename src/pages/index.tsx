@@ -1,9 +1,8 @@
 import axios from "axios";
-import { GetStaticProps, NextPage } from "next";
+import { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { AiOutlineHeart } from "react-icons/ai";
 import { upperFirst, sliceWords } from "@/utils";
 import { Iproducts } from "@/types";
 const Home: NextPage<Iproducts> = ({ data }) => {
@@ -19,16 +18,12 @@ const Home: NextPage<Iproducts> = ({ data }) => {
               key={index}
               className="relative border py-4 block overflow-hidden group rounded-xl"
             >
-              <button className="absolute right-4 top-4 z-10 rounded-full bg-white p-1.5 text-gray-900 transition hover:text-gray-900/75">
-                <span className="sr-only">Wishlist</span>
-                <AiOutlineHeart />
-              </button>
               <Image
                 src={item.image}
                 alt="asdas"
                 width={300}
-                height={300}
-                className="object-contain w-full h-36 transition duration-500 group-hover:scale-105 sm:h-72"
+                height={100}
+                className="object-contain w-full aspect-square transition duration-500 group-hover:scale-105 sm:h-72"
               />
               <div className="relative p-6 bg-white border-gray-100">
                 <span className="whitespace-nowrap bg-yellow-400 px-3 py-1.5 text-xs font-medium">
@@ -67,12 +62,11 @@ const Home: NextPage<Iproducts> = ({ data }) => {
     </div>
   );
 };
-
-export default Home;
-
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const { data } = await axios.get("https://fakestoreapi.com/products");
   return {
     props: { data },
   };
 };
+
+export default Home;
