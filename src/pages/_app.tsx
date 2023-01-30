@@ -2,13 +2,11 @@ import Navbar from "@/components/Navbar";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Inter } from "@next/font/google";
 import { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useProgressStore } from "@/store";
 import { Progress } from "@/components/progress";
-const inter = Inter({ subsets: ["cyrillic"] });
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
   const setIsAnimating = useProgressStore((state) => state.setIsAnimating);
@@ -35,9 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Progress isAnimating={isAnimating} />
       <Navbar />
       <Toaster />
-      <main className={inter.className}>
-        <Component {...pageProps} />
-      </main>
+      <Component {...pageProps} />
     </QueryClientProvider>
   );
 }

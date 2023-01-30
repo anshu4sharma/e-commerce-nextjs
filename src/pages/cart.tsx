@@ -1,21 +1,27 @@
 import Image from "next/image";
 import { MdOutlineDelete, MdOutlineRemoveShoppingCart } from "react-icons/md";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useCard } from "@/store/useCard";
+import { sliceWords } from "@/utils";
+import { IProductitem } from "@/types";
 const Cart = () => {
+  const [cartItem, setCartItem] = useState<IProductitem[]>([]);
   const items = useCard((state) => state.items);
-  console.log(items);
   const removeFromCard = useCard((state) => state.removeFromCard);
+  const removeAll = useCard((state) => state.removeAll);
   const Totalprice = useMemo(() => {
-    let totalAmount = items.reduce((total, currentValue) => {
+    let totalAmount = cartItem.reduce((total, currentValue) => {
       if (!currentValue?.price) {
         return total;
       }
-      return total + currentValue.price;
+      return (total + currentValue.price) * currentValue.quantity;
     }, 0);
     return totalAmount;
+  }, [cartItem]);
+
+  useEffect(() => {
+    setCartItem(items);
   }, [items]);
-  console.log(Totalprice, "calculatePrice");
 
   return (
     <section>
@@ -28,37 +34,41 @@ const Cart = () => {
           </header>
           <div className="mt-8">
             <ul className="space-y-4">
-              {items.length > 0 ? (
-                items.map((item, index) => {
+              {cartItem.length > 0 ? (
+                cartItem.map((item, index) => {
                   return (
-                    <li key={index} className="flex items-center">
+                    <li
+                      key={index}
+                      className="flex items-center justify-center  py-4 rounded-lg"
+                    >
                       {item.image && (
                         <Image
-                          width={400}
-                          height={400}
+                          width={80}
+                          height={80}
                           src={item?.image}
                           alt="item"
-                          className="object-contain aspect-square w-16 h-16 rounded"
+                          className="object-contain aspect-square rounded"
                         />
                       )}
                       <div className="text-sm ml-4">
-                        <h3 className="text-gray-900">{item.title}</h3>
-                        <p className="inline">Category: {item.category}</p>
-                      </div>
-
-                      <div className="flex items-center justify-end flex-1 gap-2">
-                        <form>
-                          <label htmlFor="Line2Qty" className="sr-only">
-                            Quantity
-                          </label>
-                          <p>{item.quantity}</p>
-                        </form>
+                        <h3 className="text-gray-900 sm:hidden font-bold">
+                          {item?.title && sliceWords(item?.title, 4)}
+                        </h3>
+                        <h3 className="text-gray-900 hidden sm:block font-bold">
+                          {item?.title}
+                        </h3>
+                        <p className="my-2">Category: {item.category}</p>
+                        <p className="my-2">Quantity : {item.quantity}</p>
+                        <p className="my-2">
+                          Price: {item.price} * {item.quantity}
+                        </p>
                         <button
                           onClick={() => removeFromCard(item?.id)}
-                          className="text-gray-600 transition hover:text-red-600"
+                          className="text-gray-600 mt-4 transition hover:text-red-600"
                         >
-                          <span className="sr-only">Remove item</span>
-                          <MdOutlineDelete />
+                          <span className="flex gap-2 items-center">
+                            Remove item <MdOutlineDelete />
+                          </span>
                         </button>
                       </div>
                     </li>
@@ -71,7 +81,7 @@ const Cart = () => {
                 </p>
               )}
             </ul>
-            {items.length > 0 && (
+            {cartItem.length > 0 && (
               <div className="flex justify-end pt-8 mt-8 border-t border-gray-100">
                 <div className="w-screen max-w-lg space-y-4">
                   <dl className="space-y-0.5 text-sm text-gray-700">
@@ -81,12 +91,12 @@ const Cart = () => {
                     </div>
                   </dl>
                   <div className="flex justify-end">
-                    <a
-                      href="#"
+                    <button
+                      onClick={removeAll}
                       className="block px-5 py-3 text-sm text-gray-100 transition bg-gray-700 rounded hover:bg-gray-600"
                     >
-                      Checkout
-                    </a>
+                      Remove All
+                    </button>
                   </div>
                 </div>
               </div>

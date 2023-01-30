@@ -31,8 +31,8 @@ const Navbar = () => {
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded">
       <div className="container flex flex-wrap items-center justify-between mx-auto">
         <Link href="/" className="flex items-center gap-2">
-          <span className="self-center text-xl font-bold whitespace-nowrap">
-            Myntra
+          <span className="self-center text-xl font-bold whitespace-nowrap tracking-wider">
+           Amazon
           </span>
         </Link>
         <div className="flex md:order-2">

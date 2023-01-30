@@ -1,9 +1,7 @@
-import React from "react";
+import Error from "@/components/Error";
 
 const NotFound = () => {
-  return (
-    <div className="text-center text-red-500 text-2xl">Page not Found !</div>
-  );
+  return <Error message="Error 404 Page Not Found" />;
 };
 
 export default NotFound;

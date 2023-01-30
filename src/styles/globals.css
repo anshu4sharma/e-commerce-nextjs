@@ -13,3 +13,7 @@
     -webkit-appearance: none;
   }
 }
+
+body {
+  font-family: monospace;
+}
