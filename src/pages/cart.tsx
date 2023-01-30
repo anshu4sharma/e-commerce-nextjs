@@ -39,7 +39,7 @@ const Cart = () => {
                   return (
                     <li
                       key={index}
-                      className="flex items-center justify-center  py-4 rounded-lg"
+                      className="flex items-center justify-start border  py-4 rounded-lg"
                     >
                       {item.image && (
                         <Image
