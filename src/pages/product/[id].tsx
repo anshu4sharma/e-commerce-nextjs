@@ -9,13 +9,27 @@ import { useCard } from "@/store/useCard";
 import toast from "react-hot-toast";
 import Error from "@/components/Error";
 import Rating from "@/components/Rating";
+import { AiOutlineHeart } from "react-icons/ai";
 const Product = () => {
-  const addToCart = useCard((state) => state.addToCard);
-  const addItem = (arg: IProductitem) => {
+  const { addToWishlist, addToCart, wishListItems } = useCard((state) => state);
+  const addItem = (item: IProductitem) => {
     try {
-      addToCart(arg);
+      addToCart(item);
       toast.success("Added to card !");
-    } catch (error) {
+    } catch (_) {
+      toast.error("An error occured");
+    }
+  };
+  const addWishlist = (item: IProductitem) => {
+    const isExist = wishListItems.find((product) => product.id === item.id);
+    try {
+      if (!isExist) {
+        addToWishlist(item);
+        toast.success("Added to Wishlist !");
+      } else {
+        toast.error("Item already Exist !");
+      }
+    } catch (_) {
       toast.error("An error occured");
     }
   };
@@ -85,7 +99,7 @@ const Product = () => {
               </summary>
               <div className="pb-6 prose max-w-none">{data?.description}</div>
             </details>
-            <div className="flex my-8 flex-col justify-center items-start">
+            <div className="grid-cols-2 my-6 grid gap-4 place-content-center">
               <button
                 type="button"
                 onClick={() =>
@@ -98,9 +112,28 @@ const Product = () => {
                     quantity: 1,
                   })
                 }
-                className="block px-5 py-3  text-xs font-medium text-white bg-green-600 rounded hover:bg-green-500"
+                className="flex justify-center px-4 py-3  text-xs font-medium text-white bg-green-600 rounded hover:bg-green-500"
               >
                 Add to Cart
+              </button>
+              <button
+                type="button"
+                onClick={() =>
+                  addWishlist({
+                    title: data?.title,
+                    category: data?.category,
+                    price: data?.price,
+                    id: data?.id,
+                    image: data?.image,
+                    quantity: 1,
+                  })
+                }
+                className="flex justify-center gap-2 px-2 items-center py-3  text-xs font-medium text-white bg-red-600 rounded hover:bg-red-500"
+              >
+                <span>
+                  <AiOutlineHeart />
+                </span>
+                Add to Wishlist !
               </button>
             </div>
           </div>

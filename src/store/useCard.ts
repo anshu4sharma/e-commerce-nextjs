@@ -1,47 +1,48 @@
-import { persist } from "zustand/middleware";
-import { IProductitem } from "./../types/index";
+import { persist, createJSONStorage } from "zustand/middleware";
+import { IProductitem, IuseCard } from "./../types/index";
 import { create } from "zustand";
-
-interface IuseCard {
-  items: IProductitem[];
-  addToCard: (item: IProductitem) => void;
-  removeFromCard: (id?: number) => void;
-  removeAll: () => void;
-}
 
 export const useCard = create<IuseCard>()(
   persist(
     (set, get) => ({
-      items: [],
-      addToCard: (item: IProductitem) => {
-        const isExist = get().items.find((product) => product.id === item.id);
-        const index = get().items.findIndex(
+      cartItems: [],
+      wishListItems: [],
+      addToCart: (item: IProductitem) => {
+        const isExist = get().cartItems.find(
+          (product) => product.id === item.id
+        );
+        const index = get().cartItems.findIndex(
           (product) => product.id === item.id
         );
         if (isExist) {
-          let incQuantity = get().items[index];
+          let incQuantity = get().cartItems[index];
           incQuantity.quantity++;
           set((state) => ({
-            items: [...state.items],
+            cartItems: [...state.cartItems],
           }));
         } else {
           set((state) => ({
-            items: [...state.items, item],
+            cartItems: [...state.cartItems, item],
           }));
         }
       },
-      removeFromCard: (id: number | undefined) =>
+      addToWishlist: (item: IProductitem) => {
         set((state) => ({
-          items: state.items.filter((item) => item.id !== id),
+          wishListItems: [...state.wishListItems, item],
+        }));
+      },
+      removeFromCart: (id: number | undefined) =>
+        set((state) => ({
+          cartItems: state.cartItems.filter((item) => item.id !== id),
         })),
-      removeAll: () =>
-        set(() => ({
-          items: [],
+      removeFromWishlist: (id: number | undefined) =>
+        set((state) => ({
+          wishListItems: state.wishListItems.filter((item) => item.id !== id),
         })),
     }),
     {
-      name: "cartItems",
-      getStorage: () => localStorage,
+      name: "items",
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );

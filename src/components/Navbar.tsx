@@ -2,7 +2,8 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRef, useEffect } from "react";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
+import { GiHamburgerMenu } from "react-icons/gi";
 const Navbar = () => {
   const menu = useRef<HTMLInputElement | null>(null);
   const searchbar = useRef<HTMLInputElement | null>(null);
@@ -32,7 +33,7 @@ const Navbar = () => {
       <div className="container flex flex-wrap items-center justify-between mx-auto">
         <Link href="/" className="flex items-center gap-2">
           <span className="self-center text-xl font-bold whitespace-nowrap tracking-wider">
-           Amazon
+            Amazon
           </span>
         </Link>
         <div className="flex md:order-2">
@@ -45,19 +46,7 @@ const Navbar = () => {
             aria-expanded="false"
           >
             <span className="sr-only">Open menu</span>
-            <svg
-              className="w-6 h-6"
-              aria-hidden="true"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
+            <GiHamburgerMenu />
           </button>
         </div>
         <div
@@ -65,7 +54,7 @@ const Navbar = () => {
           className={`items-center transition-all  hidden justify-between w-full md:flex md:w-auto md:order-1 `}
           id="navbar-search"
         >
-          <ul className="flex flex-col tracking-wider p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-base md:font-bold md:border-0 md:bg-white">
+          <ul className="flex flex-col p-4 mt-4  rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:text-base md:font-bold md:border-0 md:bg-white">
             <li>
               <Link
                 href="/"
@@ -131,13 +120,28 @@ const Navbar = () => {
             <li>
               <Link
                 href="/cart"
-                className={`block py-2 pl-3 pr-4 ${
+                className={`flex items-center gap-2  py-2 pl-3 pr-4 ${
                   router.pathname == "/cart"
                     ? " md:text-yellow-600 bg-yellow-600 text-white"
                     : "text-gray-700 bg-white "
                 } rounded md:bg-transparent md:p-0`}
               >
+                <span>Cart</span>
                 <AiOutlineShoppingCart className="text-2xl font-extrabold" />
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                href="/wishlist"
+                className={`flex items-center gap-2  py-2 pl-3 pr-4 ${
+                  router.pathname == "/wishlist"
+                    ? " md:text-yellow-600 bg-yellow-600 text-white"
+                    : "text-gray-700 bg-white "
+                } rounded md:bg-transparent md:p-0`}
+              >
+                <span>WishList</span>
+                <AiOutlineHeart className="text-2xl font-extrabold" />
               </Link>
             </li>
           </ul>
