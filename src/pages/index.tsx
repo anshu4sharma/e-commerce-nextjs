@@ -9,7 +9,7 @@ const Home: NextPage<Iproducts> = ({ data }) => {
     return <Error message="An error occured !" />;
   }
   return (
-    <div className="grid mt-2 sm:grid-cols-4 gap-4 max-w-screen-2xl justify-center px-4">
+    <div className="grid mt-2 sm:grid-cols-4 gap-4 justify-center px-4">
       {data?.length > 0 &&
         data?.map((item, index) => {
           return <Card key={item.id} item={item} index={index} />;
